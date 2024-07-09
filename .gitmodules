@@ -1,0 +1,3 @@
+[submodule "channel-reader/src/python-x32"]
+	path = channel-reader/src/python-x32
+	url = https://github.com/corrados/python-x32.git
