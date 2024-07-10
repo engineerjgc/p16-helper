@@ -1,13 +1,28 @@
-import sys
-sys.path.append('./python-x32/src')
-import pythonx32.x32 as x32
+import xair_api
 
 
+def main():
+    kind_id = "X32"
+    ip = "10.211.55.3"
 
-mixer = x32.BehringerX32("10.211.55.3")
-mixer.ping()
-state = mixer.get_state()
-print(state)
+    with xair_api.connect(kind_id, ip=ip) as mixer:
+        mixer.strip[8].config.name = "TEST"
+        mixer.strip[8].mix.on = True
+        print(f"{mixer.query("/ch/01/mix/on")[0]}")
+        print(
+            f"strip 09 ({mixer.strip[8].config.name}) on has been set to {mixer.strip[8].mix.on}"
+        )
+
+
+if __name__ == "__main__":
+    main()
+
+
+#
+# mixer = x32.BehringerX32("10.211.55.3")
+# mixer.ping()
+# state = mixer.get_state()
+# print(state)
 #
 # if args.to_mixer and args.from_mixer:
 #     print("Only one of to_mixer and from_mixer must be present at same time.")
